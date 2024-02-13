@@ -1,4 +1,4 @@
-# Gene co-expression network analysis in Apple
+# Gene co-expression network analysis: Example in Apple
 Creation of co-expression networks for gene correlation analysis.  Examination of modular relationships among genes across various functional domains and tissue types.
 
 **References**
