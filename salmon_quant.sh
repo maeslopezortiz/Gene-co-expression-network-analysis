@@ -1,4 +1,11 @@
 #!/bin/sh
+# Slurm directives:
+#SBATCH --cpus-per-task 4
+#SBATCH --mem-per-cpu 4G
+#SBATCH --time 1-5:10
+#SBATCH --output=logs/salmon.out
+#SBATCH --error=logs/salmon.err
+#SBATCH --job-name=salmon
 # Quantify transcript abundance using Salmon
 mkdir -p salmon_quant
 cd salmon_quant || exit  # Change directory or exit if it fails
