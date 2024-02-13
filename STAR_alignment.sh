@@ -1,4 +1,11 @@
 #!/bin/sh
+# Slurm directives:
+#SBATCH --cpus-per-task 4
+#SBATCH --mem-per-cpu 4G
+#SBATCH --time 1-5:10
+#SBATCH --output=logs/STAR.out
+#SBATCH --error=logs/STAR.err
+#SBATCH --job-name=STAR
 # Generate the index genome. Make sure you have downloaded all the necessary files from the repository. e.g. GFF files
 mkdir -p Genome/index
 cd Genome || exit  # Change directory or exit if it fails
