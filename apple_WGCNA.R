@@ -143,7 +143,7 @@ bwnet <- blockwiseModules(normalized_counts,
 
 #Write main WGCNA results object to file
 readr::write_rds(bwnet,
-                 file = file.path("results", "apple1_wgcna_results_all.RDS")
+                 file = file.path("results", "apple_wgcna_results_all.RDS")
 )
 #Explore our WGCNA results
 module_eigengenes <- bwnet$MEs
@@ -169,8 +169,7 @@ stats_df <- limma::topTable(fit, number = ncol(module_eigengenes)) %>%
   tibble::rownames_to_column("module")
 head(stats_df)
 
-
-#Let’s make plot of module 26
+#Let’s make plot of module 27
 module_df <- module_eigengenes %>%
   tibble::rownames_to_column("accession_code") %>%
   # Here we are performing an inner join with a subset of metadata
@@ -196,7 +195,7 @@ ggplot(
 
 
 
-#What genes are a part of module 0?
+#What genes are a part of module 27?
 gene_module_key <- tibble::enframe(bwnet$colors, name = "gene", value = "module") %>%
   # Let's add the `ME` part so its more clear what these numbers are and it matches elsewhere
   dplyr::mutate(module = paste0("ME", module))
@@ -206,15 +205,11 @@ gene_module_key %>%
 
 readr::write_tsv(gene_module_key, file = file.path("results", "apple_wgcna_gene_allgenes_to_module.tsv")
 )
-readr::write_tsv(gene_module_key %>%
-                   dplyr::filter(module == "ME27"), file = file.path("results", "apple1_M27_wgcna_gene_all_to_module.tsv")
-)
-
-
 #Let’s save this gene to module key to a TSV file for future use.
-readr::write_tsv(gene_module_key,
-                 file = file.path("results", "apple1_wgcna_gene_to_module26.tsv")
+readr::write_tsv(gene_module_key %>%
+                   dplyr::filter(module == "ME27"), file = file.path("results", "apple_M27_wgcna_gene_all_to_module.tsv")
 )
+
 
 #Make a custom heatmap function
 make_module_heatmap <- function(module_name,
@@ -312,98 +307,27 @@ make_module_heatmap <- function(module_name,
 }
 
 #Make module heatmaps
-mod_0_heatmap <- make_module_heatmap(module_name = "ME0")
-mod_25_heatmap <- make_module_heatmap(module_name = "ME25")
+mod_27_heatmap <- make_module_heatmap(module_name = "ME27")
+
 # Print out the plot
-mod_0_heatmap
+mod_27_heatmap
 print(mod_27_heatmap)
 #We can save this plot to PNG.
 pdf(file.path("results", "apple_module_27_heatmap.pdf"))
 mod_27_heatmap
 dev.off()
 
-#For comparison, let’s try out the custom heatmap function with a different, not differentially expressed module
-
-mod_46_heatmap <- make_module_heatmap(module_name = "ME46")
-
-# Print out the plot
-mod_25_heatmap
-png(file.path("results", "SRP140558_module_25_heatmap."))
-mod_25_heatmap
-dev.off()
-#Session info
-# Print session info
-sessioninfo::session_info()
-
-bwnet
-
-# Convert labels to colors for plotting
-#mergedColors = labels2colors(bwnet$colors)
-# Plot the dendrogram and the module colors underneath
-#plotDendroAndColors(
-#  bwnet$dendrograms[[1]],
-#  mergedColors[bwnet$blockGenes[[1]]],
-#  "Module colors",
-#  dendroLabels = FALSE,
-#  hang = 0.03,
-#  addGuide = TRUE,
-#  guideHang = 0.05 )
-
-
-#module_df <- data.frame(
-#  gene_id = names(bwnet$colors),
-#  colors = labels2colors(bwnet$colors)
-#)
-
-
-module_df[1:5,]
-write_delim(module_df,
-            file = "gene_modules_apple_F_all.txt",
-            delim = "\t")
-
-# pick out a few modules of interest here
-modules_of_interest = c("green", "turquoise", "tan")
-
-# Pull out list of genes in that module
-submod = module_df %>%
-  subset(colors %in% modules_of_interest)
-
-row.names(module_df) = module_df$gene_id
-
-# Get normalized expression for those genes
-#normalized_counts[1:5,1:10]
-
-#genes_of_interest = module_df %>%
-#  subset(colors %in% modules_of_interest)
-#expr_of_interest = normalized_counts[genes_of_interest$gene_id,]
-#expr_of_interest[1:5,1:5]
-
-#table(gene_module_key$module)
-#gene_module_key[gene_module_key$module == "ME0",]
-#gene_module_key[gene_module_key$module == "ME63",]
-#dim(gene_module_key[gene_module_key$module == "ME63",])
-#(gene_module_key[gene_module_key$module == "ME0",1])
-
 LISTOFGENES <- (gene_module_key[gene_module_key$module == "ME27",1])
-
-str(normalized_counts)
-head(normalized_counts)[1:5]
-normalized_counts[1:5,1:5]
 normalized_counts[,colnames(normalized_counts) %in% LISTOFGENES]
 head(LISTOFGENES)
 head(colnames(normalized_counts))
-#colnames(normalized_counts) %in% LISTOFGENES
-
-#any(colnames(normalized_counts) %in% LISTOFGENES$gene)
 normalized_counts[,colnames(normalized_counts) %in% LISTOFGENES$gene]
 SUBNET <- normalized_counts[,colnames(normalized_counts) %in% LISTOFGENES$gene]
-
 CR <- cor((SUBNET))
 head(CR)
 hist(CR)
 DF <- as.data.frame(as.table(CR))
 M27_Correlations <- DF[DF$Freq > 0.7 | DF$Freq < -0.7,]
-#DFOUT <- DF[DF$Freq > 0.5 | DF$Freq < -0.5,]
 write.table(M27_Correlations,file="FM27corrleations",row.names=F)
 
 
