@@ -126,6 +126,8 @@ salmon quantmerge --quants SRR*noncanonical -o salmon_merge.txt
 # WGCNA in R
 To generate the modules and cluster of genes, we will work in R with the package [WGCNA](https://cran.r-project.org/web/packages/WGCNA/index.html). 
 
+This example was created under the example of jashapiro Fix WGCNA url (#477).  Here the link of the original script: https://github.com/AlexsLemonade/refinebio-examples/blob/staging/04-advanced-topics/network-analysis_rnaseq_01_wgcna.Rmd
+
 First download all the libraries:
 ```sh
 require(devtools)
