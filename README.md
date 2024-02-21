@@ -199,3 +199,5 @@ Here we have the visualization network of module 27 created in Cytoescape.
   Spliced Transcripts Alignment to a Reference © Alexander Dobin, 2009-2024 https://www.ncbi.nlm.nih.gov/pubmed/23104886. Alex Dobin, dobin@cshl.edu. https://github.com/alexdobin/STAR/issues 
 
   Sun, X., Jiao, C., Schwaninger, H. et al. Phased diploid genome assemblies and pan-genomes provide insights into the genetic history of apple domestication. Nat Genet 52, 1423–1432 (2020). https://doi.org/10.1038/s41588-020-00723-9
+
+ Alex's Lemonade Stand Foundation.Childhood Cancer Data Lab of ALSF.2020. Link: https://github.com/AlexsLemonade
