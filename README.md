@@ -182,7 +182,9 @@ Mdg_02g014990-mRNA1	Mdg_12g007560-mRNA1	-0.802932795
 
 ## Cytoescape vizualization
 
+Here we have the visualization network of module 27 created in Cytoescape.
 
+![](https://github.com/maeslopezortiz/Gene-co-expression-network-analysis/blob/main/net_me27.png)
  
 ## **References**
 
