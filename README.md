@@ -64,6 +64,36 @@ Move downloaded files to Fastq directory
 mv SRR* Fastq/
 ```
 
+## STAR alignments
+Now we will align FASTQ files using STAR.
+
+```sh
+mkdir -p sorted_bam #create the output directory for the bam files
+cd sorted_bam || exit  # Change directory or exit if it fails
+while IFS= read -r RNA_samples
+do
+    STAR --genomeDir ~/Genome/index \
+         --runThreadN 8 \
+         --sjdbGTFfile ~/Genome/Gala_haploid_v2.gtf \
+         --readFilesIn ~/Fastq/"$RNA_samples"_1.fastq ~/Fastq/"$RNA_samples"_2.fastq \
+         --quantMode TranscriptomeSAM GeneCounts \
+         --outSAMstrandField intronMotif \
+         --outSAMtype BAM SortedByCoordinate \
+         --outSAMattributes NH HI AS NM MD \
+         --outFilterIntronMotifs RemoveNoncanonical \
+         --outFileNamePrefix "${RNA_samples}noncanonical"
+done < "$SAMPLES"
+```
+It is important to erase unnecessary files to save space.
+
+```sh
+rm *.sam
+```
+The output files that we will use for the transcripts quantification are the sortes bam files. 
+
+e. g. **SRR26729830noncanonicalAligned.toTranscriptome.out.bam**
+
+
 ## **References**
 
   Langfelder, P., Horvath, S. WGCNA: an R package for weighted correlation network analysis. BMC Bioinformatics 9, 559 (2008). https://doi.org/10.1186/1471-2105-9-559
