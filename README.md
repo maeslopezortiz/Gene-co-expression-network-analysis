@@ -153,7 +153,37 @@ Then, we can create a  a summary heatmap of a given module, here module 27. It i
 
 ![](https://github.com/maeslopezortiz/Gene-co-expression-network-analysis/blob/main/heatmap_module27.png)
 
+We can extract this information and the correlation of the inportant genes which where clasified in the "module 27"
+```sh
 
+LISTOFGENES <- gene_module_key[gene_module_key$module == "ME27", 1] #Select genes from gene_module_key where the module is "ME27".
+ SUBNET <- normalized_counts[, colnames(normalized_counts) %in% LISTOFGENES$gene] #Create a subset of normalized_counts based on the selected genes
+CR <- cor((SUBNET)) #Calculate the correlation matrix
+DF <- as.data.frame(as.table(CR)) #Convert the correlation matrix into a data frame
+M27_Correlations <- DF[DF$Freq > 0.7 | DF$Freq < -0.7,] #Select rows from the data frame where the absolute correlation coefficient is greater than 0.7
+write.table(M27_Correlations, file = "FM27corrleations", row.names = FALSE)
+
+```
+Here we use a strong filter of a correlation  -0.7 ; 0.7.  
+
+```sh
+Var1	Var2	Freq
+Mdg_02g014990-mRNA1	Mdg_15g019970-mRNA1	-0.865905603
+Mdg_03g005210-mRNA1	Mdg_02g014990-mRNA1	-0.83285841
+Mdg_06g019020-mRNA1	Mdg_02g014990-mRNA1	-0.830533544
+Mdg_02g014990-mRNA1	Mdg_02g014440-mRNA1	-0.819903242
+Mdg_10g028000-mRNA1	Mdg_02g014990-mRNA1	-0.817650655
+Mdg_02g014990-mRNA1	Mdg_10g011740-mRNA1	-0.811750223
+Mdg_02g014990-mRNA1	Mdg_09g009450-mRNA1	-0.81066779
+Mdg_02g014990-mRNA1	Mdg_13g007380-mRNA1	-0.804955294
+Mdg_02g014990-mRNA1	Mdg_12g007560-mRNA1	-0.802932795
+```
+ This new file, FM27corrleations.txt, we can be used as input for Cytoescape.
+
+## Cytoescape vizualization
+
+
+ 
 ## **References**
 
   Langfelder, P., Horvath, S. WGCNA: an R package for weighted correlation network analysis. BMC Bioinformatics 9, 559 (2008). https://doi.org/10.1186/1471-2105-9-559
