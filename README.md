@@ -157,7 +157,7 @@ We can extract this information and the correlation of the inportant genes which
 ```sh
 
 LISTOFGENES <- gene_module_key[gene_module_key$module == "ME27", 1] #Select genes from gene_module_key where the module is "ME27".
- SUBNET <- normalized_counts[, colnames(normalized_counts) %in% LISTOFGENES$gene] #Create a subset of normalized_counts based on the selected genes
+SUBNET <- normalized_counts[, colnames(normalized_counts) %in% LISTOFGENES$gene] #Create a subset of normalized_counts based on the selected genes
 CR <- cor((SUBNET)) #Calculate the correlation matrix
 DF <- as.data.frame(as.table(CR)) #Convert the correlation matrix into a data frame
 M27_Correlations <- DF[DF$Freq > 0.7 | DF$Freq < -0.7,] #Select rows from the data frame where the absolute correlation coefficient is greater than 0.7
