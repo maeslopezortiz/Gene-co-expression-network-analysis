@@ -142,6 +142,15 @@ library(igraph)
 ```
 Then we are using the base of an example of WGCNA. Run the script [apple_WGCNA.R](https://github.com/maeslopezortiz/Gene-co-expression-network-analysis/blob/main/apple_WGCNA.R)
 
+Here is an example of the outputs of the WGCNA analysis.
+>From the main main WGCNA results, we have a file **apple_wgcna_gene_allgenes_to_module.tsv** from where we can find all the modules that were created. We can choose an specific Module for a downstream analysis and plots.
+>
+
+Let’s make plot of module 27.
+![](https://github.com/maeslopezortiz/GradientBoostingRegressor/blob/main/boxplot_me27.png)
+
+
+
 
 ## **References**
 
