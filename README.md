@@ -149,7 +149,7 @@ Here is an example of the outputs of the WGCNA analysis.
 Let’s make a plot of module 27.
 ![](https://github.com/maeslopezortiz/Gene-co-expression-network-analysis/blob/main/boxplot_me27.png)
 
-Then we can create a  a summary heatmap of a given module, here mmodule 27. It is using the full gene expression matrix and by default is `normalized_counts'. 
+Then, we can create a  a summary heatmap of a given module, here module 27. It is using the full gene expression matrix and by default is `normalized_counts'. 
 
 ![](https://github.com/maeslopezortiz/Gene-co-expression-network-analysis/blob/main/heatmap_module27.png)
 
