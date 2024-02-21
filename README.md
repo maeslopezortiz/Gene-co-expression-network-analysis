@@ -147,7 +147,7 @@ Here is an example of the outputs of the WGCNA analysis.
 >
 
 Let’s make plot of module 27.
-![](https://github.com/maeslopezortiz/GradientBoostingRegressor/blob/main/boxplot_me27.png)
+![](https://github.com/maeslopezortiz/Gene-co-expression-network-analysis/edit/main/boxplot_me27.png)
 
 
 
