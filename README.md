@@ -68,6 +68,7 @@ mv SRR* Fastq/
 Now we will align FASTQ files using STAR.
 
 ```sh
+SAMPLES=~/RNA_samples_names.txt 
 mkdir -p sorted_bam #create the output directory for the bam files
 cd sorted_bam || exit  # Change directory or exit if it fails
 while IFS= read -r RNA_samples
@@ -92,6 +93,36 @@ rm *.sam
 The output files that we will use for the transcripts quantification are the sortes bam files. 
 
 e. g. **SRR26729830noncanonicalAligned.toTranscriptome.out.bam**
+
+## Salmon quantification
+Now, we are going to quantify transcript abundance using Salmon.
+
+```sh
+#!/bin/sh
+# Slurm directives:
+#SBATCH --cpus-per-task 4
+#SBATCH --mem-per-cpu 4G
+#SBATCH --time 1-5:10
+#SBATCH --output=logs/salmon.out
+#SBATCH --error=logs/salmon.err
+#SBATCH --job-name=salmon
+SAMPLES=~/RNA_samples_names.txt 
+mkdir -p salmon_quant
+cd salmon_quant || exit  # Change directory or exit if it fails
+while IFS= read -r RNA_samples
+do
+    salmon quant -t ~/Genome/transcripts.apple.fa \
+                 -l A \
+                 -a ~/sorted_bam/"${RNA_samples}noncanonical"Aligned.toTranscriptome.out.bam \
+                 -o "${RNA_samples}noncanonical"
+done < "$SAMPLES"
+```
+
+We need to merge all the quantification files per accession into one file [salmon_merge.txt] () to be used as input for WGCNA in R.
+
+```sh
+salmon quantmerge --quants SRR*noncanonical -o salmon_merge.txt
+```
 
 
 ## **References**
