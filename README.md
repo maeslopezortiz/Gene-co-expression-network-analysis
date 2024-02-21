@@ -123,6 +123,24 @@ We need to merge all the quantification files per accession into one file [salmo
 ```sh
 salmon quantmerge --quants SRR*noncanonical -o salmon_merge.txt
 ```
+# WGCNA in R
+To generate the modules and cluster of genes, we will work in R with the package [WGCNA](https://cran.r-project.org/web/packages/WGCNA/index.html). 
+
+First download all the libraries:
+```sh
+require(devtools)
+library(dplyr)
+library(tidyverse)     
+library(magrittr)      
+library(WGCNA)
+library(ggplot2)
+library(tidyverse)
+library(cowplot)
+library(patchwork)
+library(DESeq2)
+library(igraph)
+```
+Then we are using the base of an example of WGCNA. Run the script [apple_WGCNA.R](https://github.com/maeslopezortiz/Gene-co-expression-network-analysis/blob/main/apple_WGCNA.R)
 
 
 ## **References**
