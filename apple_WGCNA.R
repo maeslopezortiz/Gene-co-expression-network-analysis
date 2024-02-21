@@ -50,7 +50,6 @@ file.exists(data_file)
 # Check if the metadata file is at the file path stored in `metadata_file`
 file.exists(metadata_file)
 
-
 # Read in metadata TSV file
 metadata <- readr::read_tsv(metadata_file)
 # Read in data TSV file
@@ -69,20 +68,6 @@ df <- round(df) %>%
   as.data.frame() %>%
   # Only keep rows that have total counts above the cutoff
   dplyr::filter(rowSums(.) >= 100)
-
-#metadata <- metadata %>%
-#  dplyr::mutate(
-#    time_point = dplyr::case_when(
-#      # Create our new variable based on refinebio_title containing AV/CV
-#      stringr::str_detect(refinebio_title, "_AV_") ~ "acute illness",
-#      stringr::str_detect(refinebio_title, "_CV_") ~ "recovering"
-#    ),
-#    # It's easier for future items if this is already set up as a factor
-#    time_point = as.factor(time_point)
-#  )
-#levels(metadata$time_point)
-#levels(metadata$time_point)
-#levels(metadata$Tissue)
 
 # Create a `DESeqDataSet` object
 dds <- DESeqDataSetFromMatrix(
@@ -157,18 +142,14 @@ all.equal(metadata$Run, rownames(module_eigengenes))
 # Create the design matrix from the `tissue` variable
 des_mat <- model.matrix(~ metadata$Tissue)
 
-
 # lmFit() needs a transposed version of the matrix
 fit <- limma::lmFit(t(module_eigengenes), design = des_mat)
-
 # Apply empirical Bayes to smooth standard errors
 fit <- limma::eBayes(fit)
-
 # Apply multiple testing correction and obtain stats
 stats_df <- limma::topTable(fit, number = ncol(module_eigengenes)) %>%
   tibble::rownames_to_column("module")
 head(stats_df)
-
 #Let’s make plot of module 27
 module_df <- module_eigengenes %>%
   tibble::rownames_to_column("accession_code") %>%
@@ -192,8 +173,6 @@ ggplot(
   # A sina plot to show all of the individual data points
   ggforce::geom_sina(maxwidth = 0.3) +
   theme_classic()+ theme(axis.text.x=element_text(color = "black", size=8, angle=90))
-
-
 
 #What genes are a part of module 27?
 gene_module_key <- tibble::enframe(bwnet$colors, name = "gene", value = "module") %>%
