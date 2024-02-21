@@ -14,6 +14,7 @@ wget http://bioinfo.bti.cornell.edu/ftp/Apple_genome/genome/haploid/Gala/Gala_ha
 wget http://bioinfo.bti.cornell.edu/ftp/Apple_genome/genome/haploid/Gala/Gala_haploid_v2.gff.gz
 ```
 Use gunzip to unzip the files.
+
 It is important to index the genome according the mapper that it will be used. Here, we use STAR.
 ```sh
 #!/bin/sh
@@ -30,6 +31,8 @@ cd Genome || exit  # Change directory or exit if it fails
 STAR --runThreadN 16 --runMode genomeGenerate --genomeDir ~/Genome/index --genomeFastaFiles Genome/GalaChrs.fasta --sjdbGTFfile Genome/Gala_haploid_v2.gff --sjdbOverhang 100 --genomeSAindexNbases 12
 cd ..
 ```
+## Downloading a RNAseq samples from NCBI
+You can select which type of date is of your interest. For this example, I select samples from different apple tissues. I create an txt file with the number accession [RNA_samples.txt](https://github.com/maeslopezortiz/Gene-co-expression-network-analysis/blob/main/RNA_samples.txt). You can find the description of each sample in [Samples_NCBI_info.xlsx](https://github.com/maeslopezortiz/Gene-co-expression-network-analysis/blob/main/Samples_NCBI_info.xlsx).
 
 ## **References**
 
