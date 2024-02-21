@@ -4,13 +4,31 @@ In this project, our aim is the creation of co-expression networks for gene corr
 
 ## Downloading a genome reference
 First, we need to select and download the apple reference geneome in which we will do the mapping of the raw reads.
-> I downloaded the apple genome published by Sun, _et al_.,2020. 
-We need the genome FASTA file, annotation gff file, and  blast2go file for functional analysis.
+> I downloaded the apple genome published by Sun, _et al_.,2020.
+> 
+>  We need the genome FASTA file, annotation gff file, and  blast2go file for functional analysis.
 ```sh
 mkdir Genome
 wget http://bioinfo.bti.cornell.edu/ftp/Apple_genome/genome/haploid/Gala/Gala_haploid_v2.chr.fa.gz
 wget http://bioinfo.bti.cornell.edu/ftp/Apple_genome/genome/haploid/Gala/Gala_haploid_v2.blast2go.gz
 wget http://bioinfo.bti.cornell.edu/ftp/Apple_genome/genome/haploid/Gala/Gala_haploid_v2.gff.gz
+```
+Use gunzip to unzip the files.
+It is important to index the genome according the mapper that it will be used. Here, we use STAR.
+```sh
+#!/bin/sh
+# Slurm directives:
+#SBATCH --cpus-per-task 4
+#SBATCH --mem-per-cpu 4G
+#SBATCH --time 1-5:10
+#SBATCH --output=logs/STAR.out
+#SBATCH --error=logs/STAR.err
+#SBATCH --job-name=STAR
+# Generate the index genome. Make sure you have downloaded all the necessary files from the repository.
+mkdir -p Genome/index
+cd Genome || exit  # Change directory or exit if it fails
+STAR --runThreadN 16 --runMode genomeGenerate --genomeDir ~/Genome/index --genomeFastaFiles Genome/GalaChrs.fasta --sjdbGTFfile Genome/Gala_haploid_v2.gff --sjdbOverhang 100 --genomeSAindexNbases 12
+cd ..
 ```
 
 ## **References**
