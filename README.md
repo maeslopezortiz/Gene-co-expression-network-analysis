@@ -118,7 +118,7 @@ do
 done < "$SAMPLES"
 ```
 
-We need to merge all the quantification files per accession into one file [salmon_merge.txt] () to be used as input for WGCNA in R.
+We need to merge all the quantification files per accession into one file [salmon_merge.txt](https://github.com/maeslopezortiz/Gene-co-expression-network-analysis/blob/main/salmon_merge_all.tsv.zip) to be used as input for WGCNA in R.
 
 ```sh
 salmon quantmerge --quants SRR*noncanonical -o salmon_merge.txt
