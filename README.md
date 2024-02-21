@@ -31,8 +31,38 @@ cd Genome || exit  # Change directory or exit if it fails
 STAR --runThreadN 16 --runMode genomeGenerate --genomeDir ~/Genome/index --genomeFastaFiles Genome/GalaChrs.fasta --sjdbGTFfile Genome/Gala_haploid_v2.gff --sjdbOverhang 100 --genomeSAindexNbases 12
 cd ..
 ```
-## Downloading a RNAseq samples from NCBI
+## Downloading RNAseq samples from NCBI
 You can select which type of date is of your interest. For this example, I select samples from different apple tissues. I create an txt file with the number accession [RNA_samples.txt](https://github.com/maeslopezortiz/Gene-co-expression-network-analysis/blob/main/RNA_samples.txt). You can find the description of each sample in [Samples_NCBI_info.xlsx](https://github.com/maeslopezortiz/Gene-co-expression-network-analysis/blob/main/Samples_NCBI_info.xlsx).
+
+Dowbloading the samples using a loop script:
+```sh
+#!/bin/sh
+# Slurm directives:
+#SBATCH --cpus-per-task 4
+#SBATCH --mem-per-cpu 4G
+#SBATCH --time 1-5:10
+#SBATCH --output=logs/NCBIdownload.out
+#SBATCH --error=logs/NCBIdownload.err
+#SBATCH --job-name=NCBIdownloading
+# Define the input file with the names of RNAseq samples
+SAMPLES=~/RNA_samples_names.txt  # txt file with the names of the RNA sample accessions from NCBI
+
+# Download and convert SRA data to FASTQ format
+while read -r RNA_samples
+do
+    ${HOME}/sratoolkit.3.0.7-centos_linux64/bin/fastq-dump --split-files "$RNA_samples"
+done < "$SAMPLES"
+```
+
+Create directory for FASTQ files if it doesn't exist
+```sh
+mkdir -p Fastq
+```
+
+Move downloaded files to Fastq directory
+```sh
+mv SRR* Fastq/
+```
 
 ## **References**
 
