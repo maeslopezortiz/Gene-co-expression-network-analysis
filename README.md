@@ -153,7 +153,7 @@ Then, we can create a  a summary heatmap of a given module, here module 27. It i
 
 ![](https://github.com/maeslopezortiz/Gene-co-expression-network-analysis/blob/main/heatmap_module27.png)
 
-We can extract this information and the correlation of the inportant genes which where clasified in the "module 27"
+We can extract this information and the correlation of the important genes which where clasified in the "module 27"
 ```sh
 
 LISTOFGENES <- gene_module_key[gene_module_key$module == "ME27", 1] #Select genes from gene_module_key where the module is "ME27".
