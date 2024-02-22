@@ -1,12 +1,12 @@
 # Gene co-expression network analysis: Example in Apple
 ## Description
-In this project, our aim is the creation of co-expression networks for gene correlation analysis using public apple RNA datasets. We will examinate modular relationships among genes across various functional domains and tissue types.
+In this project, our aim is the creation of co-expression networks for gene correlation analysis using public apple RNA datasets. We will examine modular relationships among genes across various functional domains and tissue types.
 
 ## Downloading a genome reference
-First, we need to select and download the apple reference geneome in which we will do the mapping of the raw reads.
+First, we need to select and download the apple reference genome in which we will do the mapping of the raw reads.
 > I downloaded the apple genome published by Sun, _et al_.,2020.
 > 
->  We need the genome FASTA file, annotation gff file, and  blast2go file for functional analysis.
+>  We need the genome FASTA file, annotation GFF file, and  blast2go file for functional analysis.
 ```sh
 mkdir Genome
 wget http://bioinfo.bti.cornell.edu/ftp/Apple_genome/genome/haploid/Gala/Gala_haploid_v2.chr.fa.gz
@@ -90,7 +90,7 @@ It is important to erase unnecessary files to save space.
 ```sh
 rm *.sam
 ```
-The output files that we will use for the transcripts quantification are the sortes bam files. 
+The output files that we will use for the transcript quantification are the sorted bam files. 
 
 e. g. **SRR26729830noncanonicalAligned.toTranscriptome.out.bam**
 
@@ -142,10 +142,10 @@ library(patchwork)
 library(DESeq2)
 library(igraph)
 ```
-Then we are using the base of an example of WGCNA. Run the script [apple_WGCNA.R](https://github.com/maeslopezortiz/Gene-co-expression-network-analysis/blob/main/apple_WGCNA.R)
+Then we are using the based on an example of WGCNA. Run the script [apple_WGCNA.R](https://github.com/maeslopezortiz/Gene-co-expression-network-analysis/blob/main/apple_WGCNA.R)
 
 Here is an example of the outputs of the WGCNA analysis.
->From the main main WGCNA results, we have a file **apple_wgcna_gene_allgenes_to_module.tsv** from where we can find all the modules that were created. We can choose an specific Module for a downstream analysis and plots.
+>From the main main WGCNA results, we have a file **apple_wgcna_gene_allgenes_to_module.tsv** from where we can find all the modules that were created. We can choose a specific Module for a downstream analysis and plots.
 >
 
 Let’s make a plot of module 27.
@@ -182,7 +182,7 @@ Mdg_02g014990-mRNA1	Mdg_12g007560-mRNA1	-0.802932795
 ```
  This new file, FM27corrleations.txt, we can be used as input for Cytoescape.
 
-## Cytoescape vizualization
+## Cytoescape visualization
 
 Here we have the visualization network of module 27 created in Cytoescape.
 
